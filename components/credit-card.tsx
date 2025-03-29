@@ -1,43 +1,96 @@
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import { useState } from "react"
 
 interface CreditCardProps {
+  cardNumber?: string
+  cardHolder?: string
+  expiryDate?: string
+  cvv?: string
   isFlipped: boolean
 }
 
-export function CreditCard({ isFlipped }: CreditCardProps) {
-  const cardStyle = {
-    width: 195,
-    height: 128,
-  }
+export function CreditCard({ cardNumber, cardHolder, expiryDate, cvv, isFlipped }: CreditCardProps) {
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
 
   return (
-    <div
-      className={cn("relative transition-transform duration-700 transform-style-3d", isFlipped && "rotate-y-180")}
-      style={cardStyle}
-    >
-      {/* Front of card */}
-      <div className="absolute w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl">
-        <Image
-          src="/images/credit-card.png"
-          alt="Credit Card"
-          width={195}
-          height={128}
-          className="w-full h-full object-cover"
-          priority
-        />
-      </div>
+    <div className="relative w-[195px] h-[128px] perspective-1000">
+      <div
+        className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${
+          isFlipped ? "rotate-y-180" : ""
+        }`}
+      >
+        {/* Front of card */}
+        <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-xl">
+          <div className="absolute inset-0 z-0">
+            {!isImageLoaded && (
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-shimmer" />
+            )}
+            <Image
+              src="/images/credit-card.png"
+              alt="Credit Card Front"
+              width={195}
+              height={128}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${
+                isImageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={() => setIsImageLoaded(true)}
+              priority
+            />
+          </div>
+          {!isImageLoaded && (
+            <div className="absolute inset-0 p-4 flex flex-col justify-between z-10">
+              <div className="flex justify-between items-start">
+                <div className="text-white">
+                  <p className="text-xs mb-1">Card Number</p>
+                  <p className="text-sm font-mono tracking-wider">
+                    {cardNumber || "•••• ••••"}
+                  </p>
+                </div>
+                <div className="text-white">
+                  <p className="text-xs mb-1">Expires</p>
+                  <p className="text-xs font-mono">{expiryDate || "MM/YY"}</p>
+                </div>
+              </div>
+              <div className="text-white">
+                <p className="text-xs mb-1">Card Holder</p>
+                <p className="text-sm font-mono uppercase">
+                  {cardHolder || "CARD HOLDER"}
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
 
-      {/* Back of card */}
-      <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-2xl overflow-hidden shadow-xl">
-        <div className="h-8 bg-gray-800 mt-4"></div>
-        <div className="px-4 mt-4">
-          <div className="bg-white h-8 flex items-center justify-end px-3 rounded">
-            <div className="text-gray-800 font-mono text-xs">CVV</div>
+        {/* Back of card */}
+        <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden shadow-xl">
+          <div className="absolute inset-0 z-0">
+            {!isImageLoaded && (
+              <div className="absolute inset-0 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 animate-shimmer" />
+            )}
+            <Image
+              src="/images/credit-card.png"
+              alt="Credit Card Back"
+              width={195}
+              height={128}
+              className={`w-full h-full object-cover transition-opacity duration-300 ${
+                isImageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              onLoad={() => setIsImageLoaded(true)}
+              priority
+            />
           </div>
-          <div className="mt-6 text-white text-xs opacity-80">
-            The 3 or 4 digit security code on the back of your card
-          </div>
+          {!isImageLoaded && (
+            <div className="absolute inset-0 p-4 z-10">
+              <div className="h-8 bg-black mt-4 mb-2" />
+              <div className="flex justify-end">
+                <div className="text-white bg-white/10 px-2 py-1 rounded">
+                  <p className="text-xs mb-0.5">CVV</p>
+                  <p className="text-xs font-mono">{cvv || "•••"}</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
