@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+
+    /* Custom colors */
+    --payment-heading: 228 100% 90%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .payment-form-label {
+    @apply text-xs font-light leading-none tracking-normal text-[#C8C8C8];
+  }
+
+  .payment-form-input {
+    @apply w-full h-9 border-[0.5px] border-[#262626] rounded-[5px] bg-[#0E0E0E] px-5 py-2.5 text-white font-normal text-xs leading-none tracking-normal outline-none;
+  }
+
+  .payment-form-input-error {
+    @apply border-[#ff4d4f];
+  }
+
+  .payment-form-button {
+    @apply bg-[#121B53] text-white rounded-full px-8 py-2.5 border-none font-medium text-sm leading-none cursor-pointer;
+    background: radial-gradient(50% 100% at 50% 100%, rgba(103, 102, 102, 0.4) 0%, rgba(83, 83, 83, 0) 100%);
+  }
+
+  .payment-form-button:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .payment-form-gradient-text {
+    @apply text-[20px] font-medium leading-none tracking-[0%];
+    background: linear-gradient(to right, rgba(208, 215, 255, 0.89), rgba(208, 215, 255, 0.89));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .payment-form-progress-line {
+    @apply h-[1px] w-full absolute bottom-7;
+    border: 1px solid;
+    border-image-source: linear-gradient(270deg, #1B1B1B 94.8%, #6F6F6F 97.32%, #4E4E4E 99.96%);
+    border-image-slice: 1;
+  }
+
+  .payment-form-progress-text {
+    @apply font-medium text-[10px] leading-none tracking-normal text-[#797979] mt-3;
+  }
+
+  .payment-form-progress-circle {
+    @apply w-2.5 h-2.5 rounded-full absolute -top-3;
+  }
+
+  .payment-form-progress-circle-appointment {
+    @apply bg-[#797979];
+  }
+
+  .payment-form-progress-circle-payment {
+    @apply bg-[#546EFF96];
+  }
+
+  .payment-form-progress-circle-confirmation {
+    @apply bg-[#1B1B1B] border border-[#797979];
+  }
+
+  .payment-form-accordion-text {
+    @apply font-medium text-[8px] leading-none tracking-normal text-[#797979] px-1 py-0.5 rounded;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
